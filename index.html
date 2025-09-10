@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Krishi Sakhi - Comprehensive Farming Assistant Flowchart</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 10px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
+      max-width: 100%;
+      height: calc(100vh - 20px);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .title {
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.8em;
+      margin-bottom: 5px;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+    
+    .flowchart {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      width: 100%;
+      flex: 1;
+      padding: 15px 0;
+      align-items: start;
+      position: relative;
+    }
+    
+    .node {
+      position: relative;
+      color: white;
+      padding: 20px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+      min-height: 100px;
+      font-weight: 600;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    .node::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .node:hover::before {
+      left: 100%;
+    }
+    
+    .node:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    
+    .node-1 { 
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      grid-column: 1;
+    }
+    .node-2 { 
+      background: linear-gradient(135deg, #4ecdc4, #44a08d);
+      grid-column: 2;
+    }
+    .node-3 { 
+      background: linear-gradient(135deg, #45b7d1, #96c93d);
+      grid-column: 3;
+    }
+    .node-4 { 
+      background: linear-gradient(135deg, #f9ca24, #f0932b);
+      grid-column: 4;
+    }
+    .node-5 { 
+      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+      grid-column: 5;
+    }
+    .node-6 { 
+      background: linear-gradient(135deg, #fd79a8, #e84393);
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .node-7 { 
+      background: linear-gradient(135deg, #00b894, #00cec9);
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .node-8 { 
+      background: linear-gradient(135deg, #e17055, #d63031);
+      grid-column: 3;
+      grid-row: 2;
+    }
+    .node-9 { 
+      background: linear-gradient(135deg, #74b9ff, #0984e3);
+      grid-column: 4;
+      grid-row: 2;
+    }
+    .node-10 { 
+      background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+      grid-column: 5;
+      grid-row: 2;
+    }
+    
+    .description {
+      margin-top: 10px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-left: 4px solid #4ecdc4;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .description h4 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .description ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .description li {
+      padding: 4px 0;
+      color: #555;
+      font-size: 12px;
+      line-height: 1.4;
+      position: relative;
+      padding-left: 15px;
+    }
+    
+    .description li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #4ecdc4;
+      font-weight: bold;
+      font-size: 10px;
+    }
+    
+    .node-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 1;
+    }
+    
+    .node-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+      opacity: 0.9;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+    
+    .node-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    
+    .flow-number {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #34495e;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 3;
+    }
+    
+    .flow-arrow {
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid #34495e;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    
+    .flow-arrow::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -10px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid rgba(52, 73, 94, 0.4);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+    
+    .flow-line {
+      position: absolute;
+      background: linear-gradient(90deg, #34495e, #4ecdc4);
+      height: 3px;
+      z-index: 1;
+    }
+    
+    .flow-line-1 {
+      display: none;
+    }
+    
+    .flow-line-2 {
+      display: none;
+    }
+    
+    .flow-line-3 {
+      display: none;
+    }
+    
+    .flow-line-4 {
+      display: none;
+    }
+    
+    .flow-line-5 {
+      display: none;
+    }
+    
+    .flow-line-6 {
+      display: none;
+    }
+    
+    .flow-line-7 {
+      display: none;
+    }
+    
+    .flow-line-8 {
+      display: none;
+    }
+    
+    .flow-line-9 {
+      display: none;
+    }
+    
+    .node:nth-child(5n) .flow-arrow {
+      display: none;
+    }
+    
+    .node:nth-child(5) .flow-arrow {
+      display: block;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+    }
+    
+    .node:nth-child(5) .flow-arrow::after {
+      display: none;
+    }
+    
+    
+    @media (max-width: 1200px) {
+      .flowchart {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+      
+      .node-4 { grid-column: 1; grid-row: 2; }
+      .node-5 { grid-column: 2; grid-row: 2; }
+      .node-6 { grid-column: 3; grid-row: 2; }
+      .node-7 { grid-column: 1; grid-row: 3; }
+      .node-8 { grid-column: 2; grid-row: 3; }
+      .node-9 { grid-column: 3; grid-row: 3; }
+      .node-10 { grid-column: 1; grid-row: 4; }
+      
+      .flow-line {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .flowchart {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      
+      .node-3 { grid-column: 1; grid-row: 2; }
+      .node-4 { grid-column: 2; grid-row: 2; }
+      .node-5 { grid-column: 1; grid-row: 3; }
+      .node-6 { grid-column: 2; grid-row: 3; }
+      .node-7 { grid-column: 1; grid-row: 4; }
+      .node-8 { grid-column: 2; grid-row: 4; }
+      .node-9 { grid-column: 1; grid-row: 5; }
+      .node-10 { grid-column: 2; grid-row: 5; }
+      
+      .title {
+        font-size: 1.5em;
+      }
+      
+      .container {
+        padding: 15px;
+      }
+      
+      .flow-line {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">🌾 Krishi Sakhi</h1>
+    <p class="subtitle">Comprehensive Digital Farming Assistant Ecosystem</p>
+    
+    <div class="flowchart">
+      <!-- Flow Lines -->
+      <div class="flow-line flow-line-1"></div>
+      <div class="flow-line flow-line-2"></div>
+      <div class="flow-line flow-line-3"></div>
+      <div class="flow-line flow-line-4"></div>
+      <div class="flow-line flow-line-5"></div>
+      <div class="flow-line flow-line-6"></div>
+      <div class="flow-line flow-line-7"></div>
+      <div class="flow-line flow-line-8"></div>
+      <div class="flow-line flow-line-9"></div>
+      
+      <div class="node node-1">
+        <div class="node-text">
+          <div class="node-icon">👤</div>
+          <div class="node-title">User Registration</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>User Registration & Onboarding</h4>
+          <ul>
+            <li>Multilingual registration (Malayalam-first) with simple UI</li>
+            <li>Captures GPS location, farmer identity, and land details</li>
+            <li>One-time registration eliminates paperwork and links to govt. schemes</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-2">
+        <div class="node-text">
+          <div class="node-icon">📊</div>
+          <div class="node-title">Smart Profiling</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Smart Farmer Profiling</h4>
+          <ul>
+            <li>Creates a digital farmer identity with comprehensive details (land size, soil, irrigation)</li>
+            <li>Tracks past cropping patterns and farming history</li>
+            <li>Detects eligibility for subsidies and government schemes automatically</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-3">
+        <div class="node-text">
+          <div class="node-icon">🤖</div>
+          <div class="node-title">Conversational AI</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Conversational AI Interface</h4>
+          <ul>
+            <li>Supports voice, photo, and text queries in Malayalam (with district dialect recognition)</li>
+            <li>Context-aware AI remembers previous interactions and farming history</li>
+            <li>Emotional AI detects stress, provides motivational support, and connects to community</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-4">
+        <div class="node-text">
+          <div class="node-icon">🔬</div>
+          <div class="node-title">Smart Advisory</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Smart Advisory & Disease Management</h4>
+          <ul>
+            <li>AI-powered crop disease detection from photos (95%+ accuracy)</li>
+            <li>Satellite-based NDVI health monitoring with weekly alerts</li>
+            <li>Location-specific advisories and organic-first treatment recommendations</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-5">
+        <div class="node-text">
+          <div class="node-icon">📈</div>
+          <div class="node-title">Market Intelligence</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Market Intelligence & Value Addition</h4>
+          <ul>
+            <li>Prevents overproduction using panchayat-level crop tracking</li>
+            <li>Predicts supply-demand trends with 6-month forecasts</li>
+            <li>Guides farmers on value addition (e.g., turning bananas into chips) to boost income</li>
+            <li>Connects directly to buyers for transparent pricing</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-6">
+        <div class="node-text">
+          <div class="node-icon">🚚</div>
+          <div class="node-title">Supply Chain</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Supply Chain & Direct Sales Integration</h4>
+          <ul>
+            <li>Connects farmers directly with salesmen and authorized dealers</li>
+            <li>Real-time fertilizer shop inventory updates</li>
+            <li>Bulk purchasing reduces costs and eliminates middlemen exploitation</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-7">
+        <div class="node-text">
+          <div class="node-icon">⛓️</div>
+          <div class="node-title">Blockchain</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Blockchain Traceability</h4>
+          <ul>
+            <li>Immutable farming records from seed-to-sale</li>
+            <li>QR codes for consumers showing full crop journey</li>
+            <li>Satellite-verified certifications for exports</li>
+            <li>Enables premium pricing (40–80% higher) for organic/sustainable crops</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-8">
+        <div class="node-text">
+          <div class="node-icon">💧</div>
+          <div class="node-title">Resource Management</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Precision Resource Management</h4>
+          <ul>
+            <li>AI-based irrigation scheduling using soil moisture & rain analysis</li>
+            <li>Exact fertilizer recommendations, reducing waste</li>
+            <li>Smart auto-reordering of farm inputs</li>
+            <li>Helps achieve up to 40% water savings</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-9">
+        <div class="node-text">
+          <div class="node-icon">📊</div>
+          <div class="node-title">Predictive Analytics</div>
+        </div>
+        <div class="flow-arrow"></div>
+        <div class="description">
+          <h4>Predictive Analytics & Yield Forecasting</h4>
+          <ul>
+            <li>Real-time yield forecasting combining weather & satellite data</li>
+            <li>Profitability predictions for different crop scenarios</li>
+            <li>Harvest timing optimization for maximum price and quality</li>
+            <li>Risk assessment for better investment decisions</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="node node-10">
+        <div class="node-text">
+          <div class="node-icon">🌐</div>
+          <div class="node-title">Community Network</div>
+        </div>
+        <div class="description">
+          <h4>Community Knowledge Network</h4>
+          <ul>
+            <li>Peer-to-peer learning and farmer success story sharing</li>
+            <li>Video tutorials and regional calendars in Malayalam</li>
+            <li>Training programs for food processing and value-addition techniques</li>
+            <li>Builds a collaborative support ecosystem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
