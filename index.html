@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIH Krishi Sakhi - Smart Agricultural Platform</title>
+    <title>Krishi Sakhi - System Architecture Flow</title>
     <style>
         * {
             margin: 0;
@@ -13,341 +13,245 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f0f8f0 0%, #e8f4fd 100%);
+            background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
             min-height: 100vh;
-            color: #2c3e50;
+            padding: 20px;
+            color: #333;
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
-        /* Header */
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
 
         .header h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(45deg, #27ae60, #3498db);
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            background-clip: text;
+            margin-bottom: 10px;
         }
 
-        .header .subtitle {
-            color: #7f8c8d;
-            font-size: 1.1rem;
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
         }
 
         .main-layout {
             display: grid;
-            grid-template-columns: 1fr 280px;
-            gap: 25px;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
         }
 
-        /* Flowchart Area */
-        .flowchart-container {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            overflow-x: auto;
+        .flow-section {
+            display: flex;
+            flex-direction: column;
         }
 
-        /* User Lanes */
-        .user-lanes {
+        /* User Types Section */
+        .user-types {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-bottom: 40px;
         }
 
-        .user-lane {
-            background: linear-gradient(135deg, #fff, #f8f9fa);
-            border: 2px solid;
-            border-radius: 12px;
-            padding: 20px;
+        .user-card {
+            background: linear-gradient(135deg, #E8F5E8, #E3F2FD);
+            border-radius: 15px;
+            padding: 25px;
             text-align: center;
+            border: 2px solid #4CAF50;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .user-card:nth-child(2) {
+            border-color: #2196F3;
+        }
+
+        .user-card:nth-child(3) {
+            border-color: #FF9800;
+        }
+
+        .user-icon {
+            width: 60px;
+            height: 60px;
+            background: #4CAF50;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+        }
+
+        .user-card:nth-child(2) .user-icon {
+            background: #2196F3;
+        }
+
+        .user-card:nth-child(3) .user-icon {
+            background: #FF9800;
+        }
+
+        .user-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .user-card p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Arrow connectors */
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid #4CAF50;
+            margin: 20px auto;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Modules Section */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #E0E0E0;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .farmer-lane { border-color: #27ae60; }
-        .buyer-lane { border-color: #3498db; }
-        .shop-lane { border-color: #f39c12; }
+        .module-card:hover {
+            border-color: #4CAF50;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+        }
 
-        .lane-icon {
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .module-icon {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            margin: 0 auto 10px;
+            background: linear-gradient(135deg, #4CAF50, #2196F3);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             color: white;
+            margin-right: 15px;
         }
 
-        .farmer-lane .lane-icon { background: #27ae60; }
-        .buyer-lane .lane-icon { background: #3498db; }
-        .shop-lane .lane-icon { background: #f39c12; }
-
-        .lane-title {
+        .module-title {
+            font-size: 1.2rem;
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
+            color: #333;
         }
 
-        .lane-desc {
-            font-size: 0.85rem;
+        .module-flow {
+            font-size: 0.9rem;
             color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
         }
 
-        /* Flow Elements */
-        .flow-section {
-            margin: 30px 0;
+        .module-tech {
+            background: #F5F5F5;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #555;
+            border-left: 4px solid #4CAF50;
         }
 
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-left: 10px;
-            border-left: 4px solid #27ae60;
-        }
-
-        /* Process Blocks (Rectangles) */
-        .process-flow {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        /* Data Flow Section */
+        .data-flow {
+            background: linear-gradient(135deg, #F8F9FA, #E8F5E8);
+            border-radius: 15px;
+            padding: 25px;
             margin-bottom: 30px;
         }
 
-        .process-block {
-            background: white;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .process-block:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .process-block.innovation {
-            border-color: #e74c3c;
-            background: linear-gradient(135deg, #fff5f5, #fff);
-        }
-
-        .process-block.ai-ml {
-            border-color: #9b59b6;
-            background: linear-gradient(135deg, #f8f5ff, #fff);
-        }
-
-        .process-block.blockchain {
-            border-color: #f39c12;
-            background: linear-gradient(135deg, #fff9f0, #fff);
-        }
-
-        .block-icon {
-            font-size: 20px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .block-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
-
-        .block-desc {
-            font-size: 0.75rem;
-            color: #666;
-            line-height: 1.3;
-        }
-
-        /* Decision Blocks (Diamonds) */
-        .decision-flow {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .decision-block {
-            width: 120px;
-            height: 120px;
-            background: #3498db;
-            transform: rotate(45deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .decision-content {
-            transform: rotate(-45deg);
-            text-align: center;
-            color: white;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* Arrows */
-        .arrow {
-            display: flex;
-            justify-content: center;
-            margin: 15px 0;
-        }
-
-        .arrow-line {
-            width: 2px;
-            height: 30px;
-            background: linear-gradient(to bottom, #27ae60, #3498db);
-            position: relative;
-        }
-
-        .arrow-line::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: -3px;
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 8px solid #3498db;
-        }
-
-        .horizontal-arrow {
-            height: 2px;
-            width: 60px;
-            background: linear-gradient(to right, #27ae60, #3498db);
-            margin: 10px;
-            position: relative;
-        }
-
-        .horizontal-arrow::after {
-            content: '';
-            position: absolute;
-            right: -5px;
-            top: -3px;
-            width: 0;
-            height: 0;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            border-left: 8px solid #3498db;
-        }
-
-        /* Data Flow Connections */
-        .data-connections {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .connection-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .connection-item {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 4px solid #27ae60;
-            font-size: 0.85rem;
-        }
-
-        .connection-item .source {
-            font-weight: 600;
-            color: #27ae60;
-        }
-
-        .connection-item .target {
-            color: #666;
-        }
-
-        /* Innovation Highlights */
-        .innovation-panel {
-            background: linear-gradient(135deg, #e8f8f5, #e3f2fd);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 2px solid #27ae60;
-        }
-
-        .innovation-title {
-            font-weight: 600;
-            color: #27ae60;
+        .data-flow h3 {
+            color: #4CAF50;
             margin-bottom: 15px;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
         }
 
-        .innovation-grid {
+        .data-sources {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
 
-        .innovation-item {
+        .data-item {
             background: white;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #bdc3c7;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #2196F3;
+            font-size: 0.9rem;
         }
 
-        .innovation-item.highlight {
-            border-color: #e74c3c;
-            background: linear-gradient(135deg, #fff5f5, #fff);
-        }
-
-        .innovation-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+        .data-item strong {
+            color: #2196F3;
             display: block;
-        }
-
-        .innovation-text {
-            font-size: 0.8rem;
-            font-weight: 600;
+            margin-bottom: 5px;
         }
 
         /* Tech Stack Sidebar */
-        .tech-sidebar {
-            background: white;
+        .tech-stack {
+            background: linear-gradient(135deg, #263238, #37474F);
             border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            color: white;
             height: fit-content;
             position: sticky;
             top: 20px;
         }
 
-        .tech-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #2c3e50;
+        .tech-stack h3 {
+            color: #4CAF50;
             margin-bottom: 20px;
+            font-size: 1.3rem;
             text-align: center;
-            border-bottom: 2px solid #27ae60;
-            padding-bottom: 10px;
         }
 
         .tech-category {
@@ -355,124 +259,31 @@
         }
 
         .tech-category h4 {
+            color: #81C784;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            padding: 5px 0;
             font-size: 0.9rem;
-            font-weight: 600;
-            color: #27ae60;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .tech-category h4::before {
-            content: '▶';
-            margin-right: 8px;
-            font-size: 0.7rem;
-        }
-
-        .tech-items {
-            display: grid;
-            gap: 8px;
-        }
-
-        .tech-item {
-            background: #f8f9fa;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            border-left: 3px solid #3498db;
-        }
-
-        .tech-item::before {
-            content: '•';
-            color: #3498db;
-            margin-right: 8px;
-            font-weight: bold;
-        }
-
-        /* Legend */
-        .legend {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        .legend-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .legend-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            font-size: 0.8rem;
-        }
-
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            margin-right: 8px;
-        }
-
-        .innovation-color { background: #e74c3c; }
-        .ai-color { background: #9b59b6; }
-        .blockchain-color { background: #f39c12; }
-        .process-color { background: #bdc3c7; }
-
-        /* Feedback Loops */
-        .feedback-loop {
+            color: #B0BEC5;
             position: relative;
-            margin: 20px 0;
+            padding-left: 15px;
         }
 
-        .feedback-arrow {
-            width: 100px;
-            height: 2px;
-            background: #e74c3c;
-            border-radius: 1px;
-            position: relative;
-            margin: 10px auto;
-        }
-
-        .feedback-arrow::before,
-        .feedback-arrow::after {
-            content: '';
+        .tech-list li::before {
+            content: "▶";
+            color: #4CAF50;
             position: absolute;
-            width: 0;
-            height: 0;
-        }
-
-        .feedback-arrow::before {
-            left: -5px;
-            top: -3px;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            border-right: 8px solid #e74c3c;
-        }
-
-        .feedback-arrow::after {
-            right: -5px;
-            top: -3px;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-            border-left: 8px solid #e74c3c;
-        }
-
-        .feedback-label {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #e74c3c;
-            font-weight: 600;
+            left: 0;
+            font-size: 0.7rem;
         }
 
         /* Responsive Design */
@@ -481,359 +292,272 @@
                 grid-template-columns: 1fr;
             }
             
-            .tech-sidebar {
+            .tech-stack {
                 order: -1;
-                position: static;
             }
         }
 
         @media (max-width: 768px) {
-            .user-lanes {
+            .user-types {
                 grid-template-columns: 1fr;
             }
             
-            .process-flow {
+            .modules-grid {
                 grid-template-columns: 1fr;
             }
             
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
         }
 
-        /* Animation for flow */
-        @keyframes flowAnimation {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+        /* Connection lines */
+        .connection-line {
+            height: 2px;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+            margin: 10px 0;
+            border-radius: 1px;
+            animation: flow 3s linear infinite;
         }
 
-        .animated-flow {
-            animation: flowAnimation 2s ease-in-out infinite;
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <h1>🌾 Krishi Sakhi - Smart Agricultural Platform</h1>
-            <p class="subtitle">AI-Powered End-to-End Agricultural Solution for Smart India Hackathon</p>
+            <h1>🌾 Krishi Sakhi System Architecture</h1>
+            <p>Comprehensive Agricultural Technology Platform Flow</p>
         </div>
 
         <div class="main-layout">
-            <!-- Main Flowchart -->
-            <div class="flowchart-container">
-                
-                <!-- User Entry Points -->
-                <div class="section-title">👥 User Entry Points & Classification</div>
-                <div class="user-lanes">
-                    <div class="user-lane farmer-lane">
-                        <div class="lane-icon">🌾</div>
-                        <div class="lane-title">Farmers</div>
-                        <div class="lane-desc">Primary users seeking advisory, market access, and government scheme benefits</div>
+            <div class="flow-section">
+                <!-- User Types -->
+                <div class="user-types">
+                    <div class="user-card">
+                        <div class="user-icon">🌾</div>
+                        <h3>Farmers</h3>
+                        <p>Registration → Farm Profiling → Soil Test → GPS Mapping → Government Schemes → Daily Advisory → Community Engagement</p>
                     </div>
-                    <div class="user-lane buyer-lane">
-                        <div class="lane-icon">🏪</div>
-                        <div class="lane-title">Buyers</div>
-                        <div class="lane-desc">Procurement entities seeking quality produce with blockchain verification</div>
+                    <div class="user-card">
+                        <div class="user-icon">🏪</div>
+                        <h3>Buyers</h3>
+                        <p>Registration → Crop Requirements → Direct Farmer Connection → Purchase Agreements → Quality Verification</p>
                     </div>
-                    <div class="user-lane shop-lane">
-                        <div class="lane-icon">🏬</div>
-                        <div class="lane-title">Fertilizer Shops</div>
-                        <div class="lane-desc">Input suppliers managing inventory and farmer networks</div>
+                    <div class="user-card">
+                        <div class="user-icon">🏬</div>
+                        <h3>Fertilizer Shops</h3>
+                        <p>Registration → Inventory Management → Farmer Network → Order Processing → Stock Alerts</p>
                     </div>
                 </div>
 
-                <div class="arrow">
-                    <div class="arrow-line animated-flow"></div>
-                </div>
+                <div class="arrow-down"></div>
 
-                <!-- Registration & Onboarding -->
-                <div class="section-title">📝 Smart Onboarding & Profiling</div>
-                <div class="process-flow">
-                    <div class="process-block">
-                        <span class="block-icon">📱</span>
-                        <div class="block-title">User Registration</div>
-                        <div class="block-desc">Mobile/Web signup with language preference</div>
-                    </div>
-                    <div class="process-block innovation">
-                        <span class="block-icon">📍</span>
-                        <div class="block-title">GPS & Location</div>
-                        <div class="block-desc">Automatic location capture via Google Maps API</div>
-                    </div>
-                    <div class="process-block ai-ml">
-                        <span class="block-icon">🔬</span>
-                        <div class="block-title">Soil Test OCR</div>
-                        <div class="block-desc">AI-powered soil report analysis</div>
-                    </div>
-                    <div class="process-block innovation">
-                        <span class="block-icon">🏛️</span>
-                        <div class="block-title">Scheme Matching</div>
-                        <div class="block-desc">Auto-match government schemes</div>
-                    </div>
-                </div>
-
-                <div class="arrow">
-                    <div class="arrow-line animated-flow"></div>
-                </div>
-
-                <!-- Core AI Decision Hub -->
-                <div class="section-title">🤖 AI-Powered Decision Engine</div>
-                <div class="decision-flow">
-                    <div class="decision-block">
-                        <div class="decision-content">
-                            AI Analysis<br/>
-                            & Routing
+                <!-- Modules Grid -->
+                <div class="modules-grid">
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">👤</div>
+                            <div class="module-title">Smart Farmer Profiling</div>
+                        </div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Welcome → Language Selection → GPS Location → Soil Test Upload → Government Scheme Matching
+                        </div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> OCR Processing, Google Maps API, Supabase Government Scheme Database
                         </div>
                     </div>
-                </div>
 
-                <div style="display: flex; justify-content: space-around; margin: 20px 0;">
-                    <div class="horizontal-arrow animated-flow"></div>
-                    <div class="horizontal-arrow animated-flow"></div>
-                    <div class="horizontal-arrow animated-flow"></div>
-                </div>
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">🤖</div>
+                            <div class="module-title">Conversational AI Interface</div>
+                        </div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Voice/Text Input → Malayalam Processing → Context Retrieval → AI Response → Action Suggestion
+                        </div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> Flutter Voice Interface, Flask Backend, Hugging Face Blenderbot
+                        </div>
+                    </div>
 
-                <!-- Core Modules -->
-                <div class="section-title">⚡ Core Intelligence Modules</div>
-                <div class="process-flow">
-                    <div class="process-block ai-ml">
-                        <span class="block-icon">🤖</span>
-                        <div class="block-title">Conversational AI</div>
-                        <div class="block-desc">Malayalam NLP with voice interface</div>
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">🌱</div>
+                            <div class="module-title">Crop Health Management</div>
+                        </div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Photo Capture → Disease Detection → Treatment Recommendation → Community Alert → Progress Tracking
+                        </div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> LLaVA Disease Detection, Sentinel-2 NDVI Imagery, Supabase Health Records
+                        </div>
                     </div>
-                    <div class="process-block innovation">
-                        <span class="block-icon">🌱</span>
-                        <div class="block-title">Crop Health AI</div>
-                        <div class="block-desc">LLaVA disease detection + Satellite NDVI</div>
-                    </div>
-                    <div class="process-block ai-ml">
-                        <span class="block-icon">📊</span>
-                        <div class="block-title">Market Intelligence</div>
-                        <div class="block-desc">Price prediction with web scraping</div>
-                    </div>
-                </div>
 
-                <div class="process-flow">
-                    <div class="process-block innovation">
-                        <span class="block-icon">💧</span>
-                        <div class="block-title">Precision Resources</div>
-                        <div class="block-desc">Weather-based irrigation + fertilizer optimization</div>
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">📈</div>
+                            <div class="module-title">Market Intelligence</div>
+                        </div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Price Data Scraping → Supply-Demand Forecasting → Crop Coordination → Buyer Connection → Smart Contracts
+                        </div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> Playwright Agmarknet Scraping, Pandas Analysis, Polygon Blockchain
+                        </div>
                     </div>
-                    <div class="process-block">
-                        <span class="block-icon">👥</span>
-                        <div class="block-title">Community Network</div>
-                        <div class="block-desc">Knowledge sharing with gamification</div>
-                    </div>
-                    <div class="process-block blockchain">
-                        <span class="block-icon">🔗</span>
-                        <div class="block-title">Blockchain Traceability</div>
-                        <div class="block-desc">End-to-end supply chain transparency</div>
-                    </div>
-                </div>
 
-                <!-- Data Flow Connections -->
-                <div class="data-connections">
-                    <div class="section-title">📡 Real-time Data Integration</div>
-                    <div class="connection-grid">
-                        <div class="connection-item">
-                            <div class="source">Satellite Data →</div>
-                            <div class="target">Crop health monitoring (NDVI analysis)</div>
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">💧</div>
+                            <div class="module-title">Precision Resource Management</div>
                         </div>
-                        <div class="connection-item">
-                            <div class="source">Weather APIs →</div>
-                            <div class="target">Irrigation scheduling & alerts</div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Weather & Soil Data → Irrigation Scheduling → Fertilizer Optimization → Shop Inventory Sync
                         </div>
-                        <div class="connection-item">
-                            <div class="source">Market Scraping →</div>
-                            <div class="target">Real-time price forecasting</div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> OpenWeather/Meteo APIs, APScheduler, Fertilizer Shop Integration
                         </div>
-                        <div class="connection-item">
-                            <div class="source">Government APIs →</div>
-                            <div class="target">Scheme eligibility & notifications</div>
+                    </div>
+
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">👥</div>
+                            <div class="module-title">Community Knowledge Network</div>
                         </div>
-                        <div class="connection-item">
-                            <div class="source">Farmer Feedback →</div>
-                            <div class="target">AI model improvement loop</div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Success Stories → Video Tutorials → Peer Learning → Gamification → Knowledge Exchange
                         </div>
-                        <div class="connection-item">
-                            <div class="source">Blockchain Records →</div>
-                            <div class="target">Quality verification for buyers</div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> Firebase Real-time Features, YouTube API, Gamification Engine
+                        </div>
+                    </div>
+
+                    <div class="module-card">
+                        <div class="module-header">
+                            <div class="module-icon">🔗</div>
+                            <div class="module-title">Blockchain Traceability</div>
+                        </div>
+                        <div class="module-flow">
+                            <strong>Flow:</strong> Crop Registration → Growth Tracking → Quality Verification → Export Certification → QR Transparency
+                        </div>
+                        <div class="module-tech">
+                            <strong>Tech:</strong> Web3.py Smart Contracts, IPFS Storage, QR Code Generation
                         </div>
                     </div>
                 </div>
 
-                <!-- Innovation Highlights -->
-                <div class="innovation-panel">
-                    <div class="innovation-title">🚀 Key Innovation Areas</div>
-                    <div class="innovation-grid">
-                        <div class="innovation-item highlight">
-                            <span class="innovation-icon">🧠</span>
-                            <div class="innovation-text">Vision-Language AI<br/>(LLaVA)</div>
+                <!-- Data Flow Architecture -->
+                <div class="data-flow">
+                    <h3>📊 Inter-Module Data Flow Architecture</h3>
+                    <div class="data-sources">
+                        <div class="data-item">
+                            <strong>Firebase</strong>
+                            User profiles, chat history, community data, real-time features
                         </div>
-                        <div class="innovation-item highlight">
-                            <span class="innovation-icon">🛰️</span>
-                            <div class="innovation-text">Sentinel-2 Satellite<br/>Integration</div>
+                        <div class="data-item">
+                            <strong>Supabase</strong>
+                            Farm profiles, government schemes, crop health, market data, traceability
                         </div>
-                        <div class="innovation-item highlight">
-                            <span class="innovation-icon">🏛️</span>
-                            <div class="innovation-text">Government Scheme<br/>Auto-matching</div>
+                        <div class="data-item">
+                            <strong>IPFS</strong>
+                            Immutable certificates, documents, blockchain storage
                         </div>
-                        <div class="innovation-item highlight">
-                            <span class="innovation-icon">⛓️</span>
-                            <div class="innovation-text">Blockchain Supply<br/>Chain</div>
+                        <div class="data-item">
+                            <strong>External APIs</strong>
+                            Hugging Face AI, Sentinel-2 Satellite, Google Maps, Weather APIs
                         </div>
-                        <div class="innovation-item">
-                            <span class="innovation-icon">🗣️</span>
-                            <div class="innovation-text">Malayalam Voice<br/>Interface</div>
+                        <div class="data-item">
+                            <strong>Web Scraping</strong>
+                            Playwright for Agmarknet market data, price trends
                         </div>
-                        <div class="innovation-item">
-                            <span class="innovation-icon">📱</span>
-                            <div class="innovation-text">Cross-platform<br/>Mobile App</div>
+                        <div class="data-item">
+                            <strong>Government APIs</strong>
+                            Scheme details, eligibility criteria, subsidy information
                         </div>
                     </div>
                 </div>
 
-                <!-- Feedback Loops -->
-                <div class="feedback-loop">
-                    <div class="feedback-arrow"></div>
-                    <div class="feedback-label">Continuous Learning & Improvement</div>
-                </div>
-
-                <!-- Final Outcomes -->
-                <div class="section-title">🎯 End-to-End Value Creation</div>
-                <div class="process-flow">
-                    <div class="process-block innovation">
-                        <span class="block-icon">📈</span>
-                        <div class="block-title">Increased Yield</div>
-                        <div class="block-desc">AI-driven crop optimization</div>
-                    </div>
-                    <div class="process-block innovation">
-                        <span class="block-icon">💰</span>
-                        <div class="block-title">Better Prices</div>
-                        <div class="block-desc">Direct market access & timing</div>
-                    </div>
-                    <div class="process-block innovation">
-                        <span class="block-icon">🎯</span>
-                        <div class="block-title">Scheme Benefits</div>
-                        <div class="block-desc">Automated government support</div>
-                    </div>
-                    <div class="process-block blockchain">
-                        <span class="block-icon">✅</span>
-                        <div class="block-title">Quality Assurance</div>
-                        <div class="block-desc">Blockchain verification</div>
-                    </div>
-                </div>
-
-                <!-- Legend -->
-                <div class="legend">
-                    <div class="legend-title">🔍 Symbol Legend</div>
-                    <div class="legend-items">
-                        <div class="legend-item">
-                            <div class="legend-color innovation-color"></div>
-                            <span>Innovation Highlights</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color ai-color"></div>
-                            <span>AI/ML Components</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color blockchain-color"></div>
-                            <span>Blockchain Integration</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color process-color"></div>
-                            <span>Standard Processes</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="connection-line"></div>
             </div>
 
             <!-- Tech Stack Sidebar -->
-            <div class="tech-sidebar">
-                <div class="tech-title">🛠️ Technical Stack</div>
+            <div class="tech-stack">
+                <h3>🛠️ Technical Stack</h3>
                 
                 <div class="tech-category">
-                    <h4>🎯 AI & Machine Learning</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Hugging Face Transformers</div>
-                        <div class="tech-item">LLaVA (Vision-Language)</div>
-                        <div class="tech-item">Blenderbot (Conversational)</div>
-                        <div class="tech-item">OCR Processing</div>
-                        <div class="tech-item">NDVI Analysis</div>
-                    </div>
+                    <h4>Frontend & Mobile</h4>
+                    <ul class="tech-list">
+                        <li>Flutter (Mobile App)</li>
+                        <li>HTML/CSS/JavaScript</li>
+                        <li>Responsive Design</li>
+                        <li>Voice Interface</li>
+                    </ul>
                 </div>
 
                 <div class="tech-category">
-                    <h4>📱 Frontend & Mobile</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Flutter (Cross-platform)</div>
-                        <div class="tech-item">React.js</div>
-                        <div class="tech-item">Voice Recognition</div>
-                        <div class="tech-item">PWA Support</div>
-                    </div>
+                    <h4>Backend & APIs</h4>
+                    <ul class="tech-list">
+                        <li>Flask (Python Backend)</li>
+                        <li>RESTful APIs</li>
+                        <li>APScheduler</li>
+                        <li>Web Scraping (Playwright)</li>
+                    </ul>
                 </div>
 
                 <div class="tech-category">
-                    <h4>⚙️ Backend & APIs</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Flask (Python)</div>
-                        <div class="tech-item">FastAPI</div>
-                        <div class="tech-item">APScheduler</div>
-                        <div class="tech-item">Playwright (Scraping)</div>
-                    </div>
+                    <h4>AI & Machine Learning</h4>
+                    <ul class="tech-list">
+                        <li>Hugging Face Transformers</li>
+                        <li>LLaVA (Vision-Language)</li>
+                        <li>Blenderbot (Conversational AI)</li>
+                        <li>OCR Processing</li>
+                    </ul>
                 </div>
 
                 <div class="tech-category">
-                    <h4>💾 Databases</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Firebase (Real-time)</div>
-                        <div class="tech-item">Supabase (PostgreSQL)</div>
-                        <div class="tech-item">IPFS (Distributed)</div>
-                        <div class="tech-item">Redis (Caching)</div>
-                    </div>
+                    <h4>Databases & Storage</h4>
+                    <ul class="tech-list">
+                        <li>Firebase (Real-time)</li>
+                        <li>Supabase (PostgreSQL)</li>
+                        <li>IPFS (Distributed Storage)</li>
+                        <li>Cloud Storage</li>
+                    </ul>
                 </div>
 
                 <div class="tech-category">
-                    <h4>⛓️ Blockchain</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Web3.py</div>
-                        <div class="tech-item">Ethereum/Polygon</div>
-                        <div class="tech-item">Smart Contracts</div>
-                        <div class="tech-item">QR Code Generation</div>
-                    </div>
+                    <h4>Blockchain & Smart Contracts</h4>
+                    <ul class="tech-list">
+                        <li>Web3.py</li>
+                        <li>Ethereum/Polygon</li>
+                        <li>Smart Contracts</li>
+                        <li>QR Code Generation</li>
+                    </ul>
                 </div>
 
                 <div class="tech-category">
-                    <h4>🌐 External APIs</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Google Maps</div>
-                        <div class="tech-item">OpenWeather</div>
-                        <div class="tech-item">Sentinel-2 Satellite</div>
-                        <div class="tech-item">Government APIs</div>
-                        <div class="tech-item">Agmarknet Data</div>
-                    </div>
+                    <h4>External Integrations</h4>
+                    <ul class="tech-list">
+                        <li>Google Maps API</li>
+                        <li>OpenWeather API</li>
+                        <li>Sentinel-2 Satellite</li>
+                        <li>YouTube API</li>
+                        <li>Government APIs</li>
+                        <li>Agmarknet Data</li>
+                    </ul>
                 </div>
 
                 <div class="tech-category">
-                    <h4>📊 Data Processing</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">Pandas</div>
-                        <div class="tech-item">NumPy</div>
-                        <div class="tech-item">OpenCV</div>
-                        <div class="tech-item">Scikit-learn</div>
-                    </div>
-                </div>
-
-                <div class="tech-category">
-                    <h4>☁️ Cloud & DevOps</h4>
-                    <div class="tech-items">
-                        <div class="tech-item">AWS/GCP</div>
-                        <div class="tech-item">Docker</div>
-                        <div class="tech-item">CI/CD Pipeline</div>
-                        <div class="tech-item">Load Balancing</div>
-                    </div>
+                    <h4>Data Processing</h4>
+                    <ul class="tech-list">
+                        <li>Pandas (Data Analysis)</li>
+                        <li>NumPy</li>
+                        <li>Image Processing</li>
+                        <li>NDVI Analysis</li>
+                    </ul>
                 </div>
             </div>
         </div>
